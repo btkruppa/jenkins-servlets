@@ -7,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.catalina.servlets.DefaultServlet;
-import org.apache.catalina.startup.UserConfig;
 
 public class DispatcherServlet extends DefaultServlet {
 	UserController uc = new UserController();
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -21,18 +20,17 @@ public class DispatcherServlet extends DefaultServlet {
 		if (actualURL.startsWith("/static")) {
 			super.doGet(request, response);
 			return;
-		} else if(actualURL.startsWith("/users/")) {
+		} else if (actualURL.startsWith("/users/")) {
 			uc.processGet(request, response);
 		}
 	}
-	
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String actualURL = request.getRequestURI().substring(request.getContextPath().length());
 		System.out.println(actualURL);
-		
+
 		if (actualURL.startsWith("/users/")) {
 			uc.processPost(request, response);
 		}
